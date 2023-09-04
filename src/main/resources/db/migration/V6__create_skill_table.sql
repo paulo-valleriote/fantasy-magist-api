@@ -1,0 +1,7 @@
+CREATE TABLE skills (
+  id TEXT PRIMARY KEY UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  sheet_id TEXT NOT NULL,
+  CONSTRAINT fk_sheet FOREIGN KEY (sheet_id) REFERENCES sheets(id) ON DELETE CASCADE
+)

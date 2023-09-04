@@ -1,0 +1,7 @@
+CREATE TABLE sheets (
+  id TEXT PRIMARY KEY UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  specie TEXT NOT NULL,
+  character_class TEXT NOT NULL,
+  level INTEGER NOT NULL DEFAULT 1
+)

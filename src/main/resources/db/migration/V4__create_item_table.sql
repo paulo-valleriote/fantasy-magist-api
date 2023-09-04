@@ -1,0 +1,9 @@
+CREATE TABLE items (
+  id TEXT PRIMARY KEY UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  weight FLOAT NOT NULL,
+  value FLOAT NOT NULL,
+  bag_id TEXT,
+  CONSTRAINT fk_bag FOREIGN KEY(bag_id) REFERENCES bags(id) ON DELETE CASCADE
+)
