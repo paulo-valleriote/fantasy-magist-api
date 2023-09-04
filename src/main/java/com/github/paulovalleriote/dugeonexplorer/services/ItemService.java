@@ -14,10 +14,14 @@ public class ItemService {
   @Autowired
   private ItemRepository repository;
 
+  public ItemDTO save(Item item) {
+    return Mapper.parseObject(repository.save(item), ItemDTO.class);
+  }
+
   public ItemDTO create(ItemDTO spell, Bag bag) {
     Item newItem = Mapper.parseObject(spell, Item.class);
     newItem.setBag(bag);
 
-    return Mapper.parseObject(repository.save(newItem), ItemDTO.class);
+    return Mapper.parseObject(this.save(newItem), ItemDTO.class);
   }
 }

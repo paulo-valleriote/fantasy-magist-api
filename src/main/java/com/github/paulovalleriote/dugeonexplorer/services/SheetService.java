@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.paulovalleriote.dugeonexplorer.domain.models.bag.Bag;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.Sheet;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos.SheetCreationDTO;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos.SheetDTO;
@@ -52,10 +51,6 @@ public class SheetService {
     attributesService.saveDefaultAttributes(savedSheet);
 
     return Mapper.parseObject(savedSheet, SheetDTO.class);
-  }
-
-  public Bag findBag(String id) {
-    return this.bagService.find(id);
   }
 
   public void update(SheetDTO updateSheet, String id) {

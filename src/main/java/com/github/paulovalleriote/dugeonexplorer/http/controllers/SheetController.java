@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.paulovalleriote.dugeonexplorer.domain.models.bag.Bag;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos.SheetCreationDTO;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos.SheetDTO;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos.SheetResponseDTO;
@@ -44,11 +43,6 @@ public class SheetController {
   public ResponseEntity<SheetDTO> createSheet(@RequestBody @Valid SheetCreationDTO sheet) {
     SheetDTO createdSheet = this.sheetService.create(sheet);
     return ResponseEntity.status(HttpStatus.OK).body(createdSheet);
-  }
-
-  @GetMapping("/bag/{id}")
-  public ResponseEntity<Bag> findBag(@PathVariable("id") @Valid String id) {
-    return ResponseEntity.ok(this.sheetService.findBag(id));
   }
 
   @PutMapping("/{id}")
