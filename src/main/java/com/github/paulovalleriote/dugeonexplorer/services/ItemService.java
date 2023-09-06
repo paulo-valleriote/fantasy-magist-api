@@ -14,14 +14,23 @@ public class ItemService {
   @Autowired
   private ItemRepository repository;
 
+  public ItemDTO find(String id) {
+    return Mapper.parseObject(repository.findById(id).orElse(null), ItemDTO.class);
+  }
+
   public ItemDTO save(Item item) {
     return Mapper.parseObject(repository.save(item), ItemDTO.class);
   }
 
-  public ItemDTO create(ItemDTO spell, Bag bag) {
-    Item newItem = Mapper.parseObject(spell, Item.class);
+  public ItemDTO create(ItemDTO item, Bag bag) {
+    Item newItem = Mapper.parseObject(item, Item.class);
     newItem.setBag(bag);
 
     return Mapper.parseObject(this.save(newItem), ItemDTO.class);
+  }
+
+  public void delete(ItemDTO item) {
+    Item itemToDelete = Mapper.parseObject(item, Item.class);
+    repository.delete(itemToDelete);
   }
 }
