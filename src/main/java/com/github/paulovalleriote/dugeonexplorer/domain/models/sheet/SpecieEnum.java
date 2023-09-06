@@ -14,7 +14,7 @@ public enum SpecieEnum {
   private String specie;
 
   SpecieEnum(String characterClass) {
-    this.specie = characterClass;
+    this.specie = characterClass.toUpperCase();
   }
 
   public String getSpecie() {

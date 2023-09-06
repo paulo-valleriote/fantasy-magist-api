@@ -1,7 +1,10 @@
 package com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.dtos;
 
-import lombok.AllArgsConstructor;
+import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.ClassEnum;
+import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.SpecieEnum;
+
 import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -9,10 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SheetDTO {
   private String name;
-
-  private String specie;
-
-  private String characterClass;
-
+  private SpecieEnum specie;
+  private ClassEnum characterClass;
+  private int armorClass;
+  private int proficiency;
   private int level;
 }

@@ -15,7 +15,8 @@ public class SheetResponseDTO extends SheetDTO {
   private UserDTO user;
 
   public SheetResponseDTO(SheetDTO sheet, UserDTO user) {
-    super(sheet.getName(), sheet.getSpecie(), sheet.getCharacterClass(), sheet.getLevel());
+    super(sheet.getName(), sheet.getSpecie(), sheet.getCharacterClass(), sheet.getArmorClass(),
+        sheet.getLevel(), sheet.getProficiency());
     this.user = user;
   }
 }

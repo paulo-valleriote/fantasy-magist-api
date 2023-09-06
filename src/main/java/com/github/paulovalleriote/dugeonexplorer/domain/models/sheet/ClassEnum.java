@@ -19,7 +19,7 @@ public enum ClassEnum {
   private String className;
 
   ClassEnum(String characterClass) {
-    this.className = characterClass;
+    this.className = characterClass.toUpperCase();
   }
 
   public String getClassName() {
