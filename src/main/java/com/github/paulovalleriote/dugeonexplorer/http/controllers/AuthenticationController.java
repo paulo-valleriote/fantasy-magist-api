@@ -1,5 +1,7 @@
 package com.github.paulovalleriote.dugeonexplorer.http.controllers;
 
+import java.security.InvalidParameterException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,14 +35,18 @@ public class AuthenticationController {
 
   @PostMapping("/login")
   public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
-    var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-    var auth = this.authenticationManager.authenticate(usernamePassword);
+    try {
+      var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+      var auth = this.authenticationManager.authenticate(usernamePassword);
 
-    var token = tokenService.generateToken((User) auth.getPrincipal());
-    LoginResponseDTO response = new LoginResponseDTO();
-    response.setToken(token);
+      var token = tokenService.generateToken((User) auth.getPrincipal());
+      LoginResponseDTO response = new LoginResponseDTO();
+      response.setToken(token);
 
-    return ResponseEntity.ok(response);
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      throw new InvalidParameterException("Login failed");
+    }
   }
 
   @PostMapping("/register")
