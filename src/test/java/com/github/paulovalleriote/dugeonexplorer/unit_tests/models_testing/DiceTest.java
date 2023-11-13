@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.dice.Dice;
 import com.github.paulovalleriote.dugeonexplorer.domain.models.dice.DiceEnum;
 
-public class DiceTest {
+class DiceTest {
   @Test
   public void itShouldCreateAnNewDice() {
     Dice testDice;

@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -19,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @Entity
-@Table(name = "attributes")
+@Table(name = "attributes", indexes = @Index(columnList = "sheet_id"))
 @EqualsAndHashCode(of = "id")
 public class Attributes implements Serializable {
   private static final long serialVersionUID = 1L;
