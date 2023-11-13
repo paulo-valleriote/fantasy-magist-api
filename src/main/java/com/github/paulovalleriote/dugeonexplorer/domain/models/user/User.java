@@ -1,14 +1,16 @@
 package com.github.paulovalleriote.dugeonexplorer.domain.models.user;
 
-import java.util.Collection;
-
+import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.Sheet;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.Sheet;
-
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -42,6 +44,7 @@ public class User implements UserDetails {
 
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
+  @ToString.Exclude
   private List<Sheet> sheet;
 
   public User(String login, String password, UserRole role) {

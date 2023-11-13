@@ -1,8 +1,13 @@
 package com.github.paulovalleriote.dugeonexplorer.http.controllers;
 
 import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.List;
 
+import com.github.paulovalleriote.dugeonexplorer.domain.models.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.paulovalleriote.dugeonexplorer.domain.models.user.AuthenticationDTO;
-import com.github.paulovalleriote.dugeonexplorer.domain.models.user.RegisterDTO;
-import com.github.paulovalleriote.dugeonexplorer.domain.models.user.User;
-import com.github.paulovalleriote.dugeonexplorer.domain.models.user.LoginResponseDTO;
 import com.github.paulovalleriote.dugeonexplorer.repositories.UserRepository;
 import com.github.paulovalleriote.dugeonexplorer.services.TokenService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.servlet.function.ServerRequest;
 
 @RestController
 @RequestMapping("auth")
@@ -39,11 +41,16 @@ public class AuthenticationController {
       var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
       var auth = this.authenticationManager.authenticate(usernamePassword);
 
-      var token = tokenService.generateToken((User) auth.getPrincipal());
-      LoginResponseDTO response = new LoginResponseDTO();
-      response.setToken(token);
+      LoginResponseDTO response = tokenService.generateToken((User) auth.getPrincipal());
 
-      return ResponseEntity.ok(response);
+      HttpHeaders responseHeaders = new HttpHeaders();
+      responseHeaders.set("Token", response.getToken());
+      responseHeaders.set("ExpiresAt", response.getExpiresAt());
+
+      return ResponseEntity
+          .noContent()
+          .headers(responseHeaders)
+          .build();
     } catch (Exception e) {
       throw new InvalidParameterException("Login failed");
     }
@@ -55,7 +62,9 @@ public class AuthenticationController {
       return ResponseEntity.badRequest().build();
 
     String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
-    User newUser = new User(data.getLogin(), encryptedPassword, data.getRole());
+
+    UserRole role = data.getRole() != null ? data.getRole() : UserRole.PLAYER;
+    User newUser = new User(data.getLogin(), encryptedPassword, role);
 
     this.repository.save(newUser);
 

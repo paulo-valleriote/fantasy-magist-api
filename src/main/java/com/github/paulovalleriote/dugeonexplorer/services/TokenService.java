@@ -3,7 +3,9 @@ package com.github.paulovalleriote.dugeonexplorer.services;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Date;
 
+import com.github.paulovalleriote.dugeonexplorer.domain.models.user.LoginResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +20,22 @@ public class TokenService {
   @Value("${api.security.token.secret}")
   private String secret;
 
-  public String generateToken(User user) {
+  public LoginResponseDTO generateToken(User user) {
 
     try {
       Algorithm algorithm = Algorithm.HMAC256(secret);
 
-      return JWT.create()
+      Instant expiration = this.generateExpirationDate();
+      String token = JWT.create()
           .withIssuer("auth-api")
           .withSubject(user.getLogin())
-          .withExpiresAt(this.generateExpirationDate())
+          .withExpiresAt(expiration)
           .sign(algorithm);
+
+      return LoginResponseDTO.builder()
+          .token(token)
+          .expiresAt(Date.from(expiration).toString())
+          .build();
     } catch (JWTCreationException exception) {
       throw new RuntimeException("Error while generating token");
     }
