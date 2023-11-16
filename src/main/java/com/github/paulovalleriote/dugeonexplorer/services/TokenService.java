@@ -2,7 +2,9 @@ package com.github.paulovalleriote.dugeonexplorer.services;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.github.paulovalleriote.dugeonexplorer.domain.models.user.LoginResponseDTO;
@@ -26,6 +28,7 @@ public class TokenService {
       Algorithm algorithm = Algorithm.HMAC256(secret);
 
       Instant expiration = this.generateExpirationDate();
+
       String token = JWT.create()
           .withIssuer("auth-api")
           .withSubject(user.getLogin())
@@ -34,7 +37,7 @@ public class TokenService {
 
       return LoginResponseDTO.builder()
           .token(token)
-          .expiresAt(Date.from(expiration).toString())
+          .expiresAt(expiration.toString())
           .build();
     } catch (JWTCreationException exception) {
       throw new RuntimeException("Error while generating token");

@@ -1,9 +1,0 @@
-services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      - 'POSTGRES_DB=dungeon_explorer_db'
-      - 'POSTGRES_PASSWORD=dungeon_explorer_adm'
-      - 'POSTGRES_USER=dungeon_explorer'
-    ports:
-      - 5432:5432

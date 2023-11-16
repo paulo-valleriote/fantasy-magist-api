@@ -1,16 +1,13 @@
 package com.github.paulovalleriote.dugeonexplorer.domain.models.user;
 
 import com.github.paulovalleriote.dugeonexplorer.domain.models.sheet.Sheet;
-import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

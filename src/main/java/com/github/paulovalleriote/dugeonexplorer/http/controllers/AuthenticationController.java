@@ -1,13 +1,10 @@
 package com.github.paulovalleriote.dugeonexplorer.http.controllers;
 
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.List;
 
 import com.github.paulovalleriote.dugeonexplorer.domain.models.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +18,6 @@ import com.github.paulovalleriote.dugeonexplorer.repositories.UserRepository;
 import com.github.paulovalleriote.dugeonexplorer.services.TokenService;
 
 import jakarta.validation.Valid;
-import org.springframework.web.servlet.function.ServerRequest;
 
 @RestController
 @RequestMapping("auth")
