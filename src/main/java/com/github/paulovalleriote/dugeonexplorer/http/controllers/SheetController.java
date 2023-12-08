@@ -33,13 +33,13 @@ public class SheetController {
     return ResponseEntity.status(HttpStatus.OK).body(sheets);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<SheetResponseDTO> findOne(@PathVariable("id") @Valid String id) {
+  @GetMapping("/{userId}")
+  public ResponseEntity<SheetResponseDTO> findOne(@PathVariable("userId") @Valid String id) {
     SheetResponseDTO sheet = this.sheetService.byId(id);
     return ResponseEntity.status(HttpStatus.OK).body(sheet);
   }
 
-  @PostMapping
+  @PostMapping("/{userId}")
   public ResponseEntity<SheetDTO> createSheet(@RequestBody @Valid SheetCreationDTO sheet) {
     SheetDTO createdSheet = this.sheetService.create(sheet);
     return ResponseEntity.status(HttpStatus.OK).body(createdSheet);
